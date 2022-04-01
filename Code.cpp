@@ -1,72 +1,61 @@
 #include <iostream>
 #include <locale.h>
 using namespace std;
- 
-float a[10]{ 2, 4, 7, 14, 28, 56, 14, 16, 18, 20 }, n, s, d, q, i; // введите мне массив
+
+float a[10]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, n, s, d, q, i; // введите мне массив
 int ar_temp = 1, ar_max, geo_temp = 1, geo_max;
 int temp_d;
 float temp_q;
 
-int checkman() {
-    cout << "d = " << d << endl;
-    cout << "q = " << q << endl;
-    cout << "i = " << i << endl;
- 
-    cout << "ar_temp = " << ar_temp << endl;
-    cout << "ar_max = " << ar_max << endl;
-    cout << "geo_temp = " << geo_temp << endl;
-    cout << "geo_max = " << geo_max << endl;
-
-}
- 
-int main() {
+int main(){
     setlocale(LC_CTYPE, "Russian");
-    cout << "1 метка" << endl; checkman();
     n = 10; //внедрить n.size()
-    cout << "2 метка" << endl; checkman();
     d = a[1] - a[0];
-    cout << "3 метка" << endl; checkman();
-    q = a[1] / a[0]; // НА НУЛЬ ДЕЛИТЬ НЕЛЬЗЯ!!!!
-    cout << "4 метка" << endl; checkman();
-    for (int i = 0; i < n; i++) {
-        cout << "5 метка" << endl; checkman();
-        // в арифм прогрессии минимум 3 члена
-        if (d == (a[i + 1] - a[i])) {
-            cout << "6 метка" << endl; checkman();
+    q = a[1] / a[0];
+    if (q == 0) {cout << "Стоп система, стоп заводы, подсудимый и конвойный."; return 1;}
+    for (int i = 0; i < n; i++)
+    {
+        if (d == (a[i + 1] - a[i]))
+        {
             ++ar_temp;
-            cout << "6.5 метка" << endl; checkman();
-            if (ar_temp > ar_max) {
+            if (ar_temp > ar_max)
                 ar_max = ar_temp;
-                cout << "7 метка" << endl; checkman();
-            }
         }
-        else { ar_temp = 2; 
-        cout << "8 метка" << endl; checkman();
-        d = a[i + 1] - a[i];
-        cout << "9 метка" << endl; checkman();
-        } // он же из циклов не выходит, пока не пройдет n раз
-        // в геом прогрессии минимум 3 члена
-        if (q == (a[i + 1] / a[i])) {
-            cout << "10 метка" << endl; checkman();
+        else
+        {
+            ar_temp = 2;
+            d = a[i + 1] - a[i];
+        }
+        if (q == (a[i + 1] / a[i]))
+        {
             geo_temp++;
-            cout << "11 метка" << endl; checkman();
-            if (geo_temp > geo_max) {
-                cout << "12 метка" << endl; checkman();
+            if (geo_temp > geo_max)
                 geo_max = geo_temp;
-                cout << "13 метка" << endl; checkman();
-            }
-            else { geo_temp = 0;
-            cout << "14 метка" << endl; checkman();
-            q = a[i + 1] / a[i]; 
-            cout << "15 метка" << endl; checkman();
+            else
+            {
+                geo_temp = 0;
+                q = a[i + 1] / a[i];
             }
         }
     }
-    if (ar_max <= geo_max) {
-        cout << "16 метка" << endl; checkman();
+    if (ar_max >= geo_max)
         cout << ar_max << " - арифметическая прогрессия" << endl;
-        cout << "17 метка" << endl; checkman();
-    }
-    else { cout << geo_max << " - Геометрическая прогрессия" << endl; cout << "18 метка" << endl; checkman();
-    }
+    else if (ar_max <= geo_max) 
+        cout << geo_max << " - Геометрическая прогрессия" << endl;
+    else
+    cout << ar_max << " - одинаковое количество членов арифметической и/или геометрической прогрессии";
 }
+
+/*
+Тест 1
+a[10]{2, 4, 8, 16, 32, 64, 14, 16, 18, 20}
+6 - Геометрическая прогрессия
+
+Тест 2
+a[10]{2, 4, 6, 8, 10, 64, 14, 16, 18, 20}
+5 - арифметическая прогрессия
+
+Тест 3
+a[10]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+10 - арифметическая прогрессия
+*/
